@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26-Abr-2021 às 02:22
+-- Tempo de geração: 27-Abr-2021 às 20:25
 -- Versão do servidor: 10.4.17-MariaDB
 -- versão do PHP: 7.4.14
 
@@ -50,15 +50,16 @@ INSERT INTO `despesas` (`id`, `nome`, `valor`) VALUES
 
 CREATE TABLE `faturamento` (
   `id` int(11) NOT NULL,
-  `valor` decimal(10,2) DEFAULT NULL
+  `valor` decimal(10,2) DEFAULT NULL,
+  `fatura` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `faturamento`
 --
 
-INSERT INTO `faturamento` (`id`, `valor`) VALUES
-(1, '50000.00');
+INSERT INTO `faturamento` (`id`, `valor`, `fatura`) VALUES
+(1, '60000.00', '700.00');
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,7 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id`, `nome`, `qtd`, `valor`) VALUES
-(1, 'Amortecedor Cofap', 3, '130.98');
+(1, 'Amortecedor Cofap', 1, '130.98');
 
 -- --------------------------------------------------------
 
@@ -100,6 +101,28 @@ INSERT INTO `taxas` (`id`, `nome`, `valor`) VALUES
 (1, 'Simples', '2.00'),
 (2, 'Taxas da Maquina de Cartão', '2.00'),
 (3, 'Outras Taxas', '8.00');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `senha` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`) VALUES
+(4, 'admin', 'admin@eneylton.com', '$2y$10$mZ.QuTVOWHefiG58kSk2K.BW3VDnDFu/l1fhYaBmRhQ5eJTJImThm'),
+(7, 'Eneylton Barros', 'eneylton@hotmail.com', '$2y$10$JZR7X2ZpplGhF4dtchAhJedF/Y0/4ynAOd8VBlR4ehJfLOKHX4mLG'),
+(13, 'enexs', 'ene@gmail.com.br', '$2y$10$QOY9tsU49c0vK86BUx34peirngMXyhbktyuv1F3/b2i5He7a.IdIC');
 
 --
 -- Índices para tabelas despejadas
@@ -130,6 +153,13 @@ ALTER TABLE `taxas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- AUTO_INCREMENT de tabelas despejadas
 --
 
@@ -156,6 +186,12 @@ ALTER TABLE `pedidos`
 --
 ALTER TABLE `taxas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

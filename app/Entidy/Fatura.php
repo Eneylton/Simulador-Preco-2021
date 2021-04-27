@@ -12,6 +12,7 @@ class Fatura{
     public $id;
 
     public $valor;
+    public $fatura;
 
 
     
@@ -23,7 +24,8 @@ class Fatura{
         $this->id = $obdataBase->insert([
           
            
-            'valor'        => $this->valor 
+            'valor'        => $this->valor, 
+            'fatura'        => $this->fatura 
 
         ]);
 
@@ -56,7 +58,9 @@ public static function getID($id){
 public function atualizar(){
     return (new Database ('faturamento'))->update('id = ' .$this-> id, [
 
-                                            'valor'     => $this->valor 
+                                            
+            'valor'        => $this->valor, 
+            'fatura'        => $this->fatura 
 
     ]);
   
