@@ -11,7 +11,6 @@ use   \App\Session\Login;
 define('TITLE','Simulador de preços de produtos');
 define('BRAND','despesas');
 
-
 Login::requireLogin();
 
 $despesas = Despesa::getListar(null,null,null);
@@ -20,16 +19,21 @@ $taxas    = Taxa   ::getListar(null,null,null);
 $faturas   = Fatura ::getListar(null,null,null);
 
 if ($_GET['acao'] == 'up') {
+    if(isset($_POST['val'])){
 
-    if (is_array($_POST['val'])) {
+        if (is_array($_POST['val'])) {
  
-       foreach ($_POST['val'] as $id => $preco) {
- 
-           $item = Fatura::getID($id);
- 
-           $item->valor = $preco;
-           $item->atualizar();
-       }
+            foreach ($_POST['val'] as $id => $preco) {
+      
+                $item = Fatura::getID($id);
+      
+                $item->valor = $preco;
+                $item->atualizar();
+            }
+
+
+    }
+   
  
    }
 
@@ -37,23 +41,30 @@ if ($_GET['acao'] == 'up') {
  
  }
 
- if ($_GET['acao'] == 'up2') {
+ if(isset($_GET['acao'])){
 
-    if (is_array($_POST['fat'])) {
- 
-       foreach ($_POST['fat'] as $id => $preco) {
- 
-           $item = Fatura::getID($id);
- 
-           $item->fatura = $preco;
-           $item->atualizar();
+    if ($_GET['acao'] == 'up2') {
+
+        if (is_array($_POST['fat'])) {
+     
+           foreach ($_POST['fat'] as $id => $preco) {
+     
+               $item = Fatura::getID($id);
+     
+               $item->fatura = $preco;
+               $item->atualizar();
+           }
+     
        }
- 
-   }
+    
+       $faturas   = Fatura ::getListar(null,null,null);
+     
+     }
+    
 
-   $faturas   = Fatura ::getListar(null,null,null);
- 
+
  }
+
 
 
 $resultados1  = '';
@@ -210,6 +221,7 @@ include __DIR__.'/includes/content.php';
 include __DIR__.'/includes/listagem.php';
 include __DIR__.'/includes/footer.php';
 
+
 ?>
 
 <script>
@@ -281,4 +293,10 @@ var myChart = new Chart(ctx, {
     }
 });
 </script>
-
+<script>
+     $(document).ready(function(){
+         $("#form1 #select-all").click(function(){
+            $("#form1 input[type='checkbox']").prop('checked',this.checked);
+         });
+     });
+</script>

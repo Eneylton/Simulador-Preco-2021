@@ -1,6 +1,12 @@
 <?php 
 use \App\Session\Login;
 
+$dark = '';
+if (isset($_POST["status"])) {
+   $status = $_POST['status'];
+   $dark = 'dark-mode';
+}
+
 
  $usuariologado = Login:: getUsuarioLogado();
 
@@ -9,8 +15,10 @@ use \App\Session\Login;
           '<a href="logout.php" class="nav-link"> <i class="fas fa-power-off" style="font-size:16px"></i></a>' :
           'Visitante: <a href="login.php" class="text-light font-weigth-bold ml-2">Entrar</a>'
 
+         
+
 ?>
-<body class="sidebar-mini layout-navbar-fixed sidebar-closed sidebar-collapse">
+<body class="sidebar-mini <?= $dark ?> layout-navbar-fixed sidebar-closed sidebar-collapse">
   <div class="wrapper">
 
     <!-- Navbar -->
@@ -45,6 +53,18 @@ use \App\Session\Login;
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
+
+      <form action="?" method="post" id="form1">
+                 
+                    <div class="form-group">
+                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch3" name="status" value="Noite">
+                      <label class="custom-control-label" for="customSwitch3">Escuro / Claro</label>
+
+                      <button type="submit" name="submit" class="btn btn-primary" >Enviar</button>
+                    </div>
+                  </div>
+                  </form>
         <!-- Messages Dropdown Menu -->
        
         <li class="nav-item dropdown">

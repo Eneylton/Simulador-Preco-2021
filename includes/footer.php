@@ -11,6 +11,58 @@
   
 
 </div>
+
+<script>
+$(document).ready(function(){
+ 
+ $('#status').bootstrapToggle({
+  on: 'Noite',
+  off: 'Dia',
+  onstyle: 'success',
+  offstyle: 'danger'
+ });
+
+ $('#status').change(function(){
+  if($(this).prop('checked'))
+  {
+   $('#status').val('Noite');
+  }
+  else
+  {
+   $('#status').val('Dia');
+  }
+ });
+
+ $('#insert_data').on('submit', function(event){
+  event.preventDefault();
+
+ if($('#status').val() != '')
+  {
+var status=$('#status').val();
+
+
+   $.ajax({
+	   
+    url:"index.php",
+    method:"POST",
+    data:$(this).serialize(),
+    success:function(data){
+		
+     if(data == 'done')
+     {
+      $('#insert_data')[0].reset();
+      $('#status').bootstrapToggle('on');
+      alert("Data Inserted");
+     }
+    }
+   });
+}
+ });
+
+});
+</script>
+
+
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
